@@ -1,5 +1,4 @@
 import { Logger } from "winston";
-import fetch from "node-fetch";
 
 import { OpenAPI, ProjectControllerService, ProjectJpaDto } from '../api/index';
 
@@ -7,8 +6,8 @@ export class ArmorcodeRestApi {
 
   public constructor(
     private readonly logger: Logger,
-    private readonly host: string,
-    private readonly token: string
+    host: string,
+    token: string
   ){
     OpenAPI.TOKEN = token;
     OpenAPI.BASE = host;
@@ -27,6 +26,7 @@ export class ArmorcodeRestApi {
 
   public async getVulnerabilities(projectName: string, projectVersion: string) : Promise<ProjectJpaDto[]> {
     try {
+      this.logger.debug("Getting Vulnerabilities");
 
         const projects = await ProjectControllerService.getAllProject();
         return projects;
