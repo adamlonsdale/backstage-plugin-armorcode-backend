@@ -54,13 +54,13 @@ export async function createRouter(
   );
 
   router.get(
-    '/vulns/:projectName/:projectVersion',
+    '/vulnerabilities/:projectName/:projectVersion',
     async (_request, response) => {
       logger.verbose('getting vulnarabilities..');
       const { projectName, projectVersion } = _request.params;
       const armorcodeApi = new ArmorcodeRestApi(logger, host, token);
-      const vulns = await armorcodeApi.getVulnerabilities(projectName, projectVersion);      
-      response.json(vulns);
+      const vulnarabilities = await armorcodeApi.getVulnerabilities(projectName, projectVersion);      
+      response.json(vulnarabilities);
     },
   );
 
