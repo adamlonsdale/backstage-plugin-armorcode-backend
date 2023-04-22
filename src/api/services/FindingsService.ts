@@ -13,6 +13,7 @@ import type { FindingUpdateRequest } from '../models/FindingUpdateRequest';
 import type { ListFindingResponse } from '../models/ListFindingResponse';
 import type { PageFindingSummary } from '../models/PageFindingSummary';
 import type { UpdateFindingTagsBulkRequestDto } from '../models/UpdateFindingTagsBulkRequestDto';
+import type { FindingStatsAppSecStatusDto } from '../models/FindingStatsAppSecStatusDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -138,6 +139,22 @@ export class FindingsService {
         });
     }
 
+    /**
+     * @param requestBody
+     * @returns FindingStatResponse OK
+     * @throws ApiError
+     */
+        public static findingStatsByProductId(
+            requestBody: FindingStatsAppSecStatusDto,
+        ): CancelablePromise<FindingStatResponse> {
+            return __request(OpenAPI, {
+                method: 'POST',
+                url: '/user/findings/findingStats/by-appsec-status',
+                body: requestBody,
+                mediaType: 'application/json',
+            });
+        }
+    
     /**
      * @param requestBody
      * @returns any OK
