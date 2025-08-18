@@ -11,5 +11,6 @@
     "rootDir": ".",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
+    "skipLibCheck": true
   }
 }

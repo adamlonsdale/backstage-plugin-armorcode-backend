@@ -14,5 +14,11 @@
  * limitations under the License.
  */
 
-export { armorcodeModule } from './module';
-export { createRouter } from './service/router';
+import { armorcodeModule } from './module';
+
+describe('armorcodeModule', () => {
+  it('should export module with correct config', () => {
+    expect(armorcodeModule).toBeDefined();
+    expect(armorcodeModule.$$type).toBe('@backstage/BackendFeature');
+  });
+});
