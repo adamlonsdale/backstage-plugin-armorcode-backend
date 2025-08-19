@@ -14,20 +14,23 @@
  * limitations under the License.
  */
 
-import { getRootLogger } from '@backstage/backend-common';
-import yn from 'yn';
-import { startStandaloneServer } from './service/standaloneServer';
+import { coreServices, createBackendModule } from '@backstage/backend-plugin-api';
+import { createRouter } from './service/router';
 
-const port = process.env.PLUGIN_PORT ? Number(process.env.PLUGIN_PORT) : 7007;
-const enableCors = yn(process.env.PLUGIN_CORS, { default: false });
-const logger = getRootLogger();
-
-startStandaloneServer({ port, enableCors, logger }).catch(err => {
-  logger.error(err);
-  process.exit(1);
-});
-
-process.on('SIGINT', () => {
-  logger.info('CTRL+C pressed; exiting.');
-  process.exit(0);
+export const armorcodeModule = createBackendModule({
+  pluginId: 'armorcode',
+  moduleId: 'armorcode',
+  register(env) {
+    env.registerInit({
+      deps: {
+        logger: coreServices.logger,
+        config: coreServices.rootConfig,
+        httpRouter: coreServices.httpRouter,
+      },
+      async init({ logger, config, httpRouter }) {
+        const router = await createRouter({ logger, config });
+        httpRouter.use(router);
+      },
+    });
+  },
 });

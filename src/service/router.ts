@@ -17,12 +17,12 @@
 import { errorHandler } from "@backstage/backend-common";
 import express from "express";
 import Router from "express-promise-router";
-import { Logger } from "winston";
+import { LoggerService } from "@backstage/backend-plugin-api";
 import { Config } from "@backstage/config";
 import { ArmorcodeRestApi } from "../api/ArmorcodeRestApi";
 
 export interface RouterOptions {
-  logger: Logger;
+  logger: LoggerService;
   config: Config;
 }
 
@@ -44,7 +44,7 @@ export async function createRouter(
   });
 
   router.get("/products", async (_request, response) => {
-    logger.verbose("getting products..");
+    logger.debug("getting products..");
     const armorcodeApi = new ArmorcodeRestApi(logger, host, token);
     const projects = await armorcodeApi.getProducts();
     response.json(projects);
@@ -53,7 +53,7 @@ export async function createRouter(
   router.get(
     "/products/:productId/findings/critical",
     async (_request, response) => {
-      logger.verbose("getting critical findings..");
+      logger.debug("getting critical findings..");
       const { productId } = _request.params;
       const armorcodeApi = new ArmorcodeRestApi(logger, host, token);
       const vulnarabilities = await armorcodeApi.getCriticalProductFindings(

@@ -1,4 +1,4 @@
-import { Logger } from "winston";
+import { LoggerService } from "@backstage/backend-plugin-api";
 import {
   OpenAPI,
   ProjectControllerService,
@@ -15,7 +15,7 @@ import {
 
 export class ArmorcodeRestApi {
   public constructor(
-    private readonly logger: Logger,
+    private readonly logger: LoggerService,
     host: string,
     token: string
   ) {
