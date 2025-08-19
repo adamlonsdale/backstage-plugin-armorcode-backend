@@ -18,17 +18,18 @@ import { coreServices, createBackendModule } from '@backstage/backend-plugin-api
 import { createRouter } from './service/router';
 
 export const armorcodeModule = createBackendModule({
-  pluginId: 'app',
+  pluginId: 'armorcode',
   moduleId: 'armorcode',
   register(env) {
     env.registerInit({
       deps: {
         logger: coreServices.logger,
-        config: coreServices.config,
+        config: coreServices.rootConfig,
         httpRouter: coreServices.httpRouter,
       },
       async init({ logger, config, httpRouter }) {
-        httpRouter.use('/armorcode', await createRouter({ logger, config }));
+        const router = await createRouter({ logger, config });
+        httpRouter.use(router);
       },
     });
   },
