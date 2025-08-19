@@ -9,7 +9,7 @@ Always reference these instructions first and fallback to search or bash command
 ### Bootstrap and Build
 - Install dependencies: `yarn install` -- takes 90 seconds. NEVER CANCEL. Set timeout to 120+ seconds.
   - Expect warnings about peer dependencies (normal and safe to ignore)
-  - Uses Node.js 16+ (verified compatible)
+  - Uses Node.js 18+ (required for AWS SDK dependencies in Backstage)
 - TypeScript compilation: `yarn tsc` -- takes 6 seconds
 - Lint the code: `yarn lint` -- takes 3 seconds  
 - Build the plugin: `yarn build` -- takes 2 seconds
@@ -50,7 +50,7 @@ armorcode:
 ### CI Requirements
 - Always run `yarn lint` before committing - CI (.github/workflows/ci.yml) will fail otherwise
 - GitHub Actions CI runs: install, tsc, lint, build
-- Uses Node.js 16.x in CI environment
+- Uses Node.js 18.x in CI environment
 
 ## Common Tasks
 
@@ -138,7 +138,7 @@ armorcode:
 - `yarn test`: 4 seconds (use 30+ second timeout)
 
 ### Environment Requirements
-- Node.js 16+ (tested and verified)
+- Node.js 18+ (required for AWS SDK dependencies)
 - Yarn package manager
 - TypeScript support via Backstage CLI
 - No additional system dependencies required
